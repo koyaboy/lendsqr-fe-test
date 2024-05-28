@@ -1,4 +1,14 @@
-/* Reset all default browser styles */
+$text-primary: #213f7d;
+$text-secondary: #545f7d;
+
+:root {
+  font-family: "Work Sans", sans-serif;
+  font-style: normal;
+  font-display: swap;
+  font-size: 16px;
+}
+
+/* CSS RESET */
 html,
 body,
 div,

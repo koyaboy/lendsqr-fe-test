@@ -1,0 +1,113 @@
+@import "/src/index.scss";
+
+.header {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  box-shadow: 3px 0px 20px 0px #0000000a;
+  padding-left: 30px;
+  padding-right: 30px;
+
+  .logo {
+    width: 144.8px;
+    height: 30px;
+  }
+
+  .search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-left: -165px;
+    width: 400px;
+    height: 40px;
+    border: 1px solid rgba(33, 63, 125, 0.2);
+    border-radius: 8px;
+
+    input {
+      outline: none;
+      border: none;
+      padding-left: 20px;
+      width: 80%;
+      color: $text-secondary;
+      font-size: 0.875rem;
+      line-height: 1.026rem;
+      &::placeholder {
+        color: $text-secondary;
+        font-size: 0.875rem;
+        line-height: 1.026rem;
+      }
+    }
+
+    .search-button-container {
+      position: absolute;
+      right: 0;
+      top: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+      width: 56px;
+      height: 40px;
+      background-color: #39cdcc;
+    }
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 47px;
+
+    .docs-link {
+      font-family: "Roboto", sans-serif;
+      font-size: 1rem;
+      line-height: 1.172rem;
+      text-decoration: underline;
+      color: $text-primary;
+      align-self: self-end;
+      margin-bottom: 12px;
+    }
+
+    .user-controls {
+      display: flex;
+      align-items: center;
+      gap: 33px;
+      img {
+        width: 26px;
+        height: 26px;
+      }
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      img {
+        border-radius: 999px;
+        width: 48px;
+        height: 48px;
+      }
+
+      button {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        .user-name {
+          font-weight: 500;
+          color: $text-primary;
+          line-height: 1.173rem;
+        }
+        .dropdown-container {
+          display: flex;
+          align-items: center;
+          padding-top: 2px;
+          justify-content: center;
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
+}

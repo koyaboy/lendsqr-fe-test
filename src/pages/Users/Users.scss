@@ -1,6 +1,55 @@
 @import "/src/index.scss";
 
 .users {
+  h1 {
+    font-size: 1.5rem;
+    line-height: 1.759rem;
+    font-weight: 500;
+    color: $text-primary;
+  }
+
+  .users-info-container {
+    display: flex;
+    gap: 26px;
+    margin-top: 40px;
+
+    .users-info {
+      background-color: white;
+      width: 25%;
+      border-radius: 4px;
+      border: 1px solid rgba(33, 63, 125, 0.06);
+      padding-left: 30px;
+      padding-bottom: 30px;
+      padding-top: 20px;
+      box-shadow: 3px 5px 20px 0px #0000000a;
+
+      .img-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+      }
+
+      .title {
+        font-size: 0.875rem;
+        color: $text-secondary;
+        font-weight: 500;
+        line-height: 1.026rem;
+        margin-top: 12px;
+      }
+
+      .amount {
+        font-size: 1.5rem;
+        line-height: 1.759rem;
+        font-weight: 600;
+        color: $text-primary;
+        margin-top: 14px;
+      }
+    }
+  }
+
   .table-container {
     border-radius: 4px;
     border: 1px solid rgba(33, 63, 125, 0.06);
@@ -11,6 +60,7 @@
     padding-bottom: 16px;
     padding-right: 39px;
     width: 100%;
+    margin-top: 40px;
     overflow-x: auto;
 
     table {

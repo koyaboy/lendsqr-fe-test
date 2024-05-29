@@ -9,7 +9,7 @@ const Sidebar = () => {
 
       <div>
         {/* SWITCH ORGANIZATION */}
-        <div className="navlink-container">
+        <button className="switch-organization-container">
           <svg
             width="16"
             height="16"
@@ -27,25 +27,24 @@ const Sidebar = () => {
               fill="#213F7D"
             />
           </svg>
-          <button className="switch-organization-container">
-            <span>Switch Organization</span>
-            <svg
-              width="12"
-              height="8"
-              viewBox="0 0 12 8"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M10.0573 0.993798C10.8984 0.152706 12.1595 1.45646 11.3184 2.25489L6.56759 7.00565C6.23127 7.38408 5.64282 7.38408 5.3065 7.00565L0.640017 2.38131C-0.158963 1.54022 1.10267 0.27907 1.94322 1.12022L5.937 5.114L10.0573 0.993798Z"
-                fill="#213F7D"
-              />
-            </svg>
-          </button>
-        </div>
+
+          <span>Switch Organization</span>
+          <svg
+            width="12"
+            height="8"
+            viewBox="0 0 12 8"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M10.0573 0.993798C10.8984 0.152706 12.1595 1.45646 11.3184 2.25489L6.56759 7.00565C6.23127 7.38408 5.64282 7.38408 5.3065 7.00565L0.640017 2.38131C-0.158963 1.54022 1.10267 0.27907 1.94322 1.12022L5.937 5.114L10.0573 0.993798Z"
+              fill="#213F7D"
+            />
+          </svg>
+        </button>
 
         {/* DASHBOARD */}
-        <div className="navlink-container dashboard">
+        <button className="navlink-container dashboard">
           <svg
             width="16"
             height="15"
@@ -71,13 +70,13 @@ const Sidebar = () => {
             </defs>
           </svg>
           <p>Dashboard</p>
-        </div>
+        </button>
 
         {/* CUSTOMERS SECTION*/}
         <section>
           <h1>CUSTOMERS</h1>
           <div className="navlinks-group">
-            <div className="navlink-container">
+            <button className="navlink-container active">
               <svg
                 width="16"
                 height="13"
@@ -96,9 +95,9 @@ const Sidebar = () => {
                 />
               </svg>
               <p>Users</p>
-            </div>
+            </button>
 
-            <div className="navlink-container">
+            <button className="navlink-container">
               <svg
                 width="16"
                 height="13"
@@ -118,9 +117,9 @@ const Sidebar = () => {
               </svg>
 
               <p>Guarantors</p>
-            </div>
+            </button>
 
-            <div className="navlink-container">
+            <button className="navlink-container">
               <svg
                 width="16"
                 height="16"
@@ -150,9 +149,9 @@ const Sidebar = () => {
                 </defs>
               </svg>
               <p>Loans</p>
-            </div>
+            </button>
 
-            <div className="navlink-container">
+            <button className="navlink-container">
               <svg
                 width="19"
                 height="16"
@@ -167,9 +166,9 @@ const Sidebar = () => {
               </svg>
 
               <p>Decision Models</p>
-            </div>
+            </button>
 
-            <div className="navlink-container">
+            <button className="navlink-container">
               <svg
                 width="16"
                 height="15"
@@ -195,9 +194,9 @@ const Sidebar = () => {
                 </defs>
               </svg>
               <p>Savings</p>
-            </div>
+            </button>
 
-            <div className="navlink-container">
+            <button className="navlink-container">
               <svg
                 width="18"
                 height="22"
@@ -247,9 +246,9 @@ const Sidebar = () => {
               </svg>
 
               <p>Loan Requests</p>
-            </div>
+            </button>
 
-            <div className="navlink-container">
+            <button className="navlink-container">
               <svg
                 width="16"
                 height="13"
@@ -275,9 +274,9 @@ const Sidebar = () => {
                 </defs>
               </svg>
               <p>Whitelist</p>
-            </div>
+            </button>
 
-            <div className="navlink-container">
+            <button className="navlink-container">
               <svg
                 width="16"
                 height="13"
@@ -303,7 +302,7 @@ const Sidebar = () => {
                 </defs>
               </svg>
               <p>Karma</p>
-            </div>
+            </button>
           </div>
         </section>
 
@@ -311,7 +310,7 @@ const Sidebar = () => {
         <section>
           <h1>BUSINESSES</h1>
           <div className="navlinks-group">
-            <div className="navlink-container">
+            <button className="navlink-container">
               <svg
                 width="16"
                 height="16"
@@ -331,9 +330,9 @@ const Sidebar = () => {
               </svg>
 
               <p>Organization</p>
-            </div>
+            </button>
 
-            <div className="navlink-container">
+            <button className="navlink-container">
               <svg
                 width="18"
                 height="22"
@@ -383,9 +382,9 @@ const Sidebar = () => {
               </svg>
 
               <p>Loan Products</p>
-            </div>
+            </button>
 
-            <div className="navlink-container">
+            <button className="navlink-container">
               <svg
                 width="16"
                 height="16"
@@ -450,9 +449,9 @@ const Sidebar = () => {
               </svg>
 
               <p>Savings Products</p>
-            </div>
+            </button>
 
-            <div className="navlink-container">
+            <button className="navlink-container">
               <svg
                 width="16"
                 height="16"
@@ -474,9 +473,9 @@ const Sidebar = () => {
               </svg>
 
               <p>Fees and Charges</p>
-            </div>
+            </button>
 
-            <div className="navlink-container">
+            <button className="navlink-container">
               <svg
                 width="16"
                 height="18"
@@ -511,9 +510,9 @@ const Sidebar = () => {
               </svg>
 
               <p>Transactions</p>
-            </div>
+            </button>
 
-            <div className="navlink-container">
+            <button className="navlink-container">
               <svg
                 width="16"
                 height="16"
@@ -540,9 +539,9 @@ const Sidebar = () => {
               </svg>
 
               <p>Services</p>
-            </div>
+            </button>
 
-            <div className="navlink-container">
+            <button className="navlink-container">
               <svg
                 width="16"
                 height="13"
@@ -569,9 +568,9 @@ const Sidebar = () => {
               </svg>
 
               <p>Service Account</p>
-            </div>
+            </button>
 
-            <div className="navlink-container">
+            <button className="navlink-container">
               <svg
                 width="16"
                 height="13"
@@ -598,9 +597,9 @@ const Sidebar = () => {
               </svg>
 
               <p>Settlements</p>
-            </div>
+            </button>
 
-            <div className="navlink-container">
+            <button className="navlink-container">
               <svg
                 width="16"
                 height="16"
@@ -620,7 +619,7 @@ const Sidebar = () => {
               </svg>
 
               <p>Reports</p>
-            </div>
+            </button>
           </div>
         </section>
 
@@ -628,7 +627,7 @@ const Sidebar = () => {
         <section>
           <h1>SETTINGS</h1>
           <div className="navlinks-group">
-            <div className="navlink-container">
+            <button className="navlink-container">
               <svg
                 width="16"
                 height="16"
@@ -655,9 +654,9 @@ const Sidebar = () => {
               </svg>
 
               <p>Preferences</p>
-            </div>
+            </button>
 
-            <div className="navlink-container">
+            <button className="navlink-container">
               <svg
                 width="16"
                 height="16"
@@ -684,9 +683,9 @@ const Sidebar = () => {
               </svg>
 
               <p>Fees and Pricing</p>
-            </div>
+            </button>
 
-            <div className="navlink-container">
+            <button className="navlink-container">
               <svg
                 width="16"
                 height="22"
@@ -713,7 +712,7 @@ const Sidebar = () => {
               </svg>
 
               <p>Audit Logs</p>
-            </div>
+            </button>
           </div>
         </section>
       </div>

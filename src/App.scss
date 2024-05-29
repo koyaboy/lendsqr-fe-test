@@ -1,0 +1,9 @@
+.content {
+  display: flex;
+
+  main {
+    width: calc(100% - 283px);
+    margin-left: 283px;
+    padding: 60px;
+  }
+}

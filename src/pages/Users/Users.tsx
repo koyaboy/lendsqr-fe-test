@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { TailSpin } from "react-loader-spinner";
+import type { Users } from "../../models/Users";
 import "./Users.scss";
 
 function getStatusClassName(status: string) {
@@ -12,8 +14,32 @@ function getStatusClassName(status: string) {
 }
 
 const Users = () => {
-  const status = "Pending";
-  const status2 = "Active";
+  const [users, setUsers] = useState<Users[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
+
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch(
+        "https://run.mocky.io/v3/bd4cf21b-66bd-4a1c-b601-266331f918e7"
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const result: Users[] = await response.json();
+
+      localStorage.setItem("Users", JSON.stringify(result));
+      setUsers(result);
+      setIsLoading(false);
+    } catch (error: any) {
+      setError(error);
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   return (
     <>
@@ -194,191 +220,183 @@ const Users = () => {
           </div>
         </div>
 
-        <div className="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>
-                  <div>
-                    <p>ORGANIZATION</p>
-                    <button>
-                      <svg
-                        width="16"
-                        height="12"
-                        viewBox="0 0 16 12"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M6.22222 11.3333H9.77778V9.55554H6.22222V11.3333ZM0 0.666656V2.44443H16V0.666656H0ZM2.66667 6.88888H13.3333V5.1111H2.66667V6.88888Z"
-                          fill="#545F7D"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </th>
-                <th>
-                  <div>
-                    <p>USERNAME</p>
-                    <button>
-                      <svg
-                        width="16"
-                        height="12"
-                        viewBox="0 0 16 12"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M6.22222 11.3333H9.77778V9.55554H6.22222V11.3333ZM0 0.666656V2.44443H16V0.666656H0ZM2.66667 6.88888H13.3333V5.1111H2.66667V6.88888Z"
-                          fill="#545F7D"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </th>
-                <th>
-                  <div>
-                    <p>EMAIL</p>
-                    <button>
-                      <svg
-                        width="16"
-                        height="12"
-                        viewBox="0 0 16 12"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M6.22222 11.3333H9.77778V9.55554H6.22222V11.3333ZM0 0.666656V2.44443H16V0.666656H0ZM2.66667 6.88888H13.3333V5.1111H2.66667V6.88888Z"
-                          fill="#545F7D"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </th>
-                <th>
-                  <div>
-                    <p>PHONE NUMBER</p>
-                    <button>
-                      <svg
-                        width="16"
-                        height="12"
-                        viewBox="0 0 16 12"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M6.22222 11.3333H9.77778V9.55554H6.22222V11.3333ZM0 0.666656V2.44443H16V0.666656H0ZM2.66667 6.88888H13.3333V5.1111H2.66667V6.88888Z"
-                          fill="#545F7D"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </th>
-                <th>
-                  <div>
-                    <p>DATE JOINED</p>
-                    <button>
-                      <svg
-                        width="16"
-                        height="12"
-                        viewBox="0 0 16 12"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M6.22222 11.3333H9.77778V9.55554H6.22222V11.3333ZM0 0.666656V2.44443H16V0.666656H0ZM2.66667 6.88888H13.3333V5.1111H2.66667V6.88888Z"
-                          fill="#545F7D"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </th>
-                <th>
-                  <div>
-                    <p>STATUS</p>
-                    <button>
-                      <svg
-                        width="16"
-                        height="12"
-                        viewBox="0 0 16 12"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M6.22222 11.3333H9.77778V9.55554H6.22222V11.3333ZM0 0.666656V2.44443H16V0.666656H0ZM2.66667 6.88888H13.3333V5.1111H2.66667V6.88888Z"
-                          fill="#545F7D"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </th>
-              </tr>
-            </thead>
+        {isLoading && (
+          <div className="loader-wrapper">
+            <TailSpin
+              visible={true}
+              height="100"
+              width="100"
+              color="#213f7d"
+              ariaLabel="tail-spin-loading"
+              radius="1"
+            />
+          </div>
+        )}
 
-            <tbody>
-              <tr>
-                <td>Lendsr</td>
-                <td>Adedji</td>
-                <td>adedji@keiff.com</td>
-                <td>080399999999</td>
-                <td>May 2024, 20:00pm</td>
-                <td>
-                  <div className="status-container">
-                    <div className={`status ${getStatusClassName(status)}`}>
-                      {status}
+        {!isLoading && (
+          <div className="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <div>
+                      <p>ORGANIZATION</p>
+                      <button>
+                        <svg
+                          width="16"
+                          height="12"
+                          viewBox="0 0 16 12"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M6.22222 11.3333H9.77778V9.55554H6.22222V11.3333ZM0 0.666656V2.44443H16V0.666656H0ZM2.66667 6.88888H13.3333V5.1111H2.66667V6.88888Z"
+                            fill="#545F7D"
+                          />
+                        </svg>
+                      </button>
                     </div>
-                  </div>
-
-                  {/* <div > */}
-                  <svg
-                    width="4"
-                    height="16"
-                    viewBox="0 0 4 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="ellipsis"
-                  >
-                    <path
-                      d="M1.99992 4.1111C2.92214 4.1111 3.66658 3.36666 3.66658 2.44444C3.66658 1.52222 2.92214 0.777771 1.99992 0.777771C1.0777 0.777771 0.333252 1.52222 0.333252 2.44444C0.333252 3.36666 1.0777 4.1111 1.99992 4.1111ZM1.99992 6.33333C1.0777 6.33333 0.333252 7.07777 0.333252 7.99999C0.333252 8.92221 1.0777 9.66666 1.99992 9.66666C2.92214 9.66666 3.66658 8.92221 3.66658 7.99999C3.66658 7.07777 2.92214 6.33333 1.99992 6.33333ZM1.99992 11.8889C1.0777 11.8889 0.333252 12.6333 0.333252 13.5555C0.333252 14.4778 1.0777 15.2222 1.99992 15.2222C2.92214 15.2222 3.66658 14.4778 3.66658 13.5555C3.66658 12.6333 2.92214 11.8889 1.99992 11.8889Z"
-                      fill="#545F7D"
-                    />
-                  </svg>
-                  {/* </div> */}
-                </td>
-              </tr>
-
-              <tr>
-                <td>Lendsr</td>
-                <td>Adedji</td>
-                <td>adedji@keiff.com</td>
-                <td>080399999999</td>
-                <td>May 2024, 20:00pm</td>
-                <td>
-                  <div className="status-container">
-                    <div className={`status ${getStatusClassName(status2)}`}>
-                      {status2}
+                  </th>
+                  <th>
+                    <div>
+                      <p>USERNAME</p>
+                      <button>
+                        <svg
+                          width="16"
+                          height="12"
+                          viewBox="0 0 16 12"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M6.22222 11.3333H9.77778V9.55554H6.22222V11.3333ZM0 0.666656V2.44443H16V0.666656H0ZM2.66667 6.88888H13.3333V5.1111H2.66667V6.88888Z"
+                            fill="#545F7D"
+                          />
+                        </svg>
+                      </button>
                     </div>
-                  </div>
+                  </th>
+                  <th>
+                    <div>
+                      <p>EMAIL</p>
+                      <button>
+                        <svg
+                          width="16"
+                          height="12"
+                          viewBox="0 0 16 12"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M6.22222 11.3333H9.77778V9.55554H6.22222V11.3333ZM0 0.666656V2.44443H16V0.666656H0ZM2.66667 6.88888H13.3333V5.1111H2.66667V6.88888Z"
+                            fill="#545F7D"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </th>
+                  <th>
+                    <div>
+                      <p>PHONE NUMBER</p>
+                      <button>
+                        <svg
+                          width="16"
+                          height="12"
+                          viewBox="0 0 16 12"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M6.22222 11.3333H9.77778V9.55554H6.22222V11.3333ZM0 0.666656V2.44443H16V0.666656H0ZM2.66667 6.88888H13.3333V5.1111H2.66667V6.88888Z"
+                            fill="#545F7D"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </th>
+                  <th>
+                    <div>
+                      <p>DATE JOINED</p>
+                      <button>
+                        <svg
+                          width="16"
+                          height="12"
+                          viewBox="0 0 16 12"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M6.22222 11.3333H9.77778V9.55554H6.22222V11.3333ZM0 0.666656V2.44443H16V0.666656H0ZM2.66667 6.88888H13.3333V5.1111H2.66667V6.88888Z"
+                            fill="#545F7D"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </th>
+                  <th>
+                    <div>
+                      <p>STATUS</p>
+                      <button>
+                        <svg
+                          width="16"
+                          height="12"
+                          viewBox="0 0 16 12"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M6.22222 11.3333H9.77778V9.55554H6.22222V11.3333ZM0 0.666656V2.44443H16V0.666656H0ZM2.66667 6.88888H13.3333V5.1111H2.66667V6.88888Z"
+                            fill="#545F7D"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
 
-                  {/* <div > */}
-                  <svg
-                    width="4"
-                    height="16"
-                    viewBox="0 0 4 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="ellipsis"
-                  >
-                    <path
-                      d="M1.99992 4.1111C2.92214 4.1111 3.66658 3.36666 3.66658 2.44444C3.66658 1.52222 2.92214 0.777771 1.99992 0.777771C1.0777 0.777771 0.333252 1.52222 0.333252 2.44444C0.333252 3.36666 1.0777 4.1111 1.99992 4.1111ZM1.99992 6.33333C1.0777 6.33333 0.333252 7.07777 0.333252 7.99999C0.333252 8.92221 1.0777 9.66666 1.99992 9.66666C2.92214 9.66666 3.66658 8.92221 3.66658 7.99999C3.66658 7.07777 2.92214 6.33333 1.99992 6.33333ZM1.99992 11.8889C1.0777 11.8889 0.333252 12.6333 0.333252 13.5555C0.333252 14.4778 1.0777 15.2222 1.99992 15.2222C2.92214 15.2222 3.66658 14.4778 3.66658 13.5555C3.66658 12.6333 2.92214 11.8889 1.99992 11.8889Z"
-                      fill="#545F7D"
-                    />
-                  </svg>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+              <tbody>
+                {users &&
+                  users.map((user) => (
+                    <tr key={user._id}>
+                      <td>{user.organization}</td>
+                      <td>{user.username}</td>
+                      <td>{user.email}</td>
+                      <td>{user.phone}</td>
+                      <td>{user.date_joined}</td>
+                      <td>
+                        <div className="status-container">
+                          <div
+                            className={`status ${getStatusClassName(
+                              user.status
+                            )}`}
+                          >
+                            {user.status}
+                          </div>
+                        </div>
+
+                        {/* <div > */}
+                        <svg
+                          width="4"
+                          height="16"
+                          viewBox="0 0 4 16"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="ellipsis"
+                        >
+                          <path
+                            d="M1.99992 4.1111C2.92214 4.1111 3.66658 3.36666 3.66658 2.44444C3.66658 1.52222 2.92214 0.777771 1.99992 0.777771C1.0777 0.777771 0.333252 1.52222 0.333252 2.44444C0.333252 3.36666 1.0777 4.1111 1.99992 4.1111ZM1.99992 6.33333C1.0777 6.33333 0.333252 7.07777 0.333252 7.99999C0.333252 8.92221 1.0777 9.66666 1.99992 9.66666C2.92214 9.66666 3.66658 8.92221 3.66658 7.99999C3.66658 7.07777 2.92214 6.33333 1.99992 6.33333ZM1.99992 11.8889C1.0777 11.8889 0.333252 12.6333 0.333252 13.5555C0.333252 14.4778 1.0777 15.2222 1.99992 15.2222C2.92214 15.2222 3.66658 14.4778 3.66658 13.5555C3.66658 12.6333 2.92214 11.8889 1.99992 11.8889Z"
+                            fill="#545F7D"
+                          />
+                        </svg>
+                        {/* </div> */}
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </>
   );

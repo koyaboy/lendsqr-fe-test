@@ -8,16 +8,16 @@ import "./App.scss";
 function App() {
   return (
     <>
-      {/* <Header />
+      <Header />
       <div className="content">
         <Sidebar />
         <main>
           <Users />
-          <UserDetails />
+          {/* <UserDetails /> */}
         </main>
-      </div> */}
+      </div>
 
-      <Login />
+      {/* <Login /> */}
     </>
   );
 }

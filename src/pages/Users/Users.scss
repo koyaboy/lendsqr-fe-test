@@ -50,6 +50,13 @@
     }
   }
 
+  .loader-wrapper {
+    margin-top: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
   .table-container {
     border-radius: 4px;
     border: 1px solid rgba(33, 63, 125, 0.06);

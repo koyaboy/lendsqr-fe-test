@@ -1,6 +1,7 @@
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Users from "./pages/Users/Users";
+import UserDetails from "./pages/UserDetails/UserDetails";
 import "./App.scss";
 
 function App() {
@@ -10,7 +11,8 @@ function App() {
       <div className="content">
         <Sidebar />
         <main>
-          <Users />
+          {/* <Users /> */}
+          <UserDetails />
         </main>
       </div>
     </>

@@ -1,0 +1,244 @@
+@import "/src/index.scss";
+
+.back-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  color: $text-secondary;
+}
+
+.heading-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 26px;
+
+  h1 {
+    font-size: 1.5rem;
+    color: $text-primary;
+    font-weight: 500;
+  }
+
+  .actions {
+    display: flex;
+    gap: 20px;
+
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 170px;
+      height: 40px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      letter-spacing: 1.4px;
+      border-radius: 8px;
+    }
+    .blacklist {
+      color: #e4033b;
+      border: 1px solid #e4033b;
+    }
+    .activate {
+      color: #39cdcc;
+      border: 1px solid #39cdcc;
+    }
+  }
+}
+
+.details.details-one {
+  position: relative;
+  height: 210px;
+  padding-top: 30px;
+
+  .profile-container {
+    display: flex;
+    align-items: center;
+
+    .user-container {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding-right: 30px;
+      border-right: 1px solid rgba(84, 95, 125, 0.2);
+
+      .img-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(33, 63, 125, 0.16);
+        border-radius: 999px;
+        width: 100px;
+        height: 100px;
+      }
+
+      .user-info {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        h2 {
+          font-size: 1.375rem;
+          line-height: 1.613rem;
+          font-weight: 500;
+          color: $text-primary;
+        }
+
+        p {
+          font-size: 0.875rem;
+          line-height: 1.026rem;
+          color: $text-secondary;
+        }
+      }
+    }
+
+    .tier-container {
+      display: flex;
+      flex-direction: column;
+      padding-top: 8px;
+      gap: 10px;
+      justify-content: center;
+      height: 100px;
+      padding-left: 30px;
+      padding-right: 30px;
+      border-right: 1px solid rgba(84, 95, 125, 0.2);
+
+      h2 {
+        font-weight: 500;
+        font-size: 0.875rem;
+        line-height: 1.026rem;
+        color: $text-secondary;
+      }
+    }
+
+    .bank-info-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+      height: 100px;
+      padding-left: 30px;
+
+      .amount {
+        font-size: 1.375rem;
+        line-height: 1.613rem;
+        font-weight: 500;
+        color: $text-primary;
+      }
+      .bank-account {
+        font-size: 0.75rem;
+        line-height: 0.88rem;
+        color: $text-primary;
+      }
+    }
+  }
+
+  nav {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding-right: 40px;
+    ul {
+      display: flex;
+      justify-content: space-between;
+
+      li {
+        display: flex;
+        justify-content: center;
+        width: 170px;
+        position: relative;
+
+        a {
+          font-family: "SF-Compact-Text-Regular", sans-serif;
+          padding-bottom: 10px;
+          color: #000000cc;
+        }
+        a.active {
+          font-family: "Work Sans", sans-serif;
+          color: #39cdcc;
+          &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 2px;
+            width: 100%;
+            background-color: #39cdcc;
+          }
+        }
+      }
+    }
+  }
+
+  //   .topbar-menu a::after,
+  // .topbar-menu a.active::after {
+  //     content: "";
+  //     position: absolute;
+  //     top: 55px;
+  //     left: 0;
+  //     height: 3px;
+  //     width: 100%;
+  //     background-color: white;
+  //     opacity: 1;
+  // }
+
+  // .topbar-menu a::after {
+  //     width: 0;
+  //     opacity: 0.5021;
+  //     transition: width 0.5s;
+  // }
+}
+
+.details {
+  background-color: white;
+  box-shadow: 3px 5px 20px 0px #0000000a;
+  border-radius: 4px;
+  padding-left: 30px;
+  padding-bottom: 46px;
+  padding-right: 30px;
+  margin-top: 30px;
+  border: 1px solid rgba(33, 63, 125, 0.06);
+
+  &:first-child {
+    margin-top: 40px;
+  }
+
+  section {
+    margin-top: 30px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(33, 63, 125, 0.1);
+    h3 {
+      color: $text-primary;
+      font-weight: 500;
+      font-size: 1rem;
+      line-height: 1.173rem;
+    }
+
+    .info-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+
+      .info {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .title {
+          color: $text-secondary;
+          font-size: 0.75rem;
+          line-height: 0.88rem;
+        }
+
+        .desc {
+          color: $text-secondary;
+          font-weight: 500;
+          font-size: 1rem;
+          line-height: 1.173rem;
+        }
+      }
+    }
+  }
+}

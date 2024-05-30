@@ -8,6 +8,13 @@ $text-secondary: #545f7d;
   font-size: 16px;
 }
 
+@font-face {
+  font-family: "SF-Compact-Text-Regular";
+  src: url("./assets//fonts/SF-Compact-Text-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* CSS RESET */
 html,
 body,

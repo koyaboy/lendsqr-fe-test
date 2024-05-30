@@ -1,0 +1,125 @@
+@import "/src/index.scss";
+
+@font-face {
+  font-family: "Avenir Next";
+  src: url("./assets//fonts/AvenirNextLTPro-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.login {
+  font-family: "Avenir Next", sans-serif;
+  display: flex;
+  width: 100%;
+  background-color: white;
+  height: 100vh;
+
+  .image-section {
+    display: flex;
+    width: 50%;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    .logo {
+      position: absolute;
+      top: 106px;
+      left: 97px;
+      width: 144.8px;
+      height: 30px;
+    }
+
+    .sign-in-img {
+      width: 600px;
+      height: 337.57px;
+    }
+  }
+
+  form {
+    display: flex;
+    width: 50%;
+    background-color: white;
+    align-items: center;
+    height: 100%;
+    padding-left: 100px;
+    // border: 2px solid #545f7d26;
+    box-shadow: 0px 15px 90px 0px #00000008;
+
+    .login-container {
+      width: 447px;
+
+      .heading-section {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        h1 {
+          font-size: 2.5rem;
+          line-height: 3.415rem;
+          font-weight: 700;
+          letter-spacing: -1.6px;
+          color: $text-primary;
+        }
+
+        p {
+          font-size: 1.25rem;
+          color: $text-secondary;
+        }
+      }
+      .inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        margin-top: 60px;
+
+        input {
+          width: 100%;
+          padding-left: 16px;
+          font-size: 0.875rem;
+          color: $text-secondary;
+          padding-top: 17.5px;
+          padding-bottom: 12.5px;
+          border: 2px solid #545f7d26;
+          border-radius: 5px;
+          &:focus {
+            outline: none;
+          }
+        }
+
+        .password-container {
+          position: relative;
+          button {
+            position: absolute;
+            top: 20px;
+            right: 18px;
+            font-size: 0.75rem;
+            letter-spacing: 1.2px;
+            color: #39cdcc;
+          }
+        }
+
+        .forgot-password {
+          font-size: 0.75rem;
+          font-weight: 600;
+          letter-spacing: 1.2px;
+          color: #39cdcc;
+        }
+      }
+
+      .login-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 48px;
+        width: 100%;
+        background-color: #39cdcc;
+        border-radius: 8px;
+        margin-top: 30px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: white;
+        letter-spacing: 0.14px;
+      }
+    }
+  }
+}

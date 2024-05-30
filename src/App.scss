@@ -1,3 +1,5 @@
+@import "./components/Header/Header.scss";
+
 .content {
   display: flex;
 
@@ -5,5 +7,6 @@
     width: calc(100% - 283px);
     margin-left: 283px;
     padding: 60px;
+    padding-top: calc(60px + $header-height);
   }
 }

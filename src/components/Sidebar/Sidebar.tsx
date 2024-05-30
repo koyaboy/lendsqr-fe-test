@@ -5,7 +5,9 @@ import logo from "../../assets/logo.png";
 const Sidebar = () => {
   return (
     <aside className="sidebar">
-      <img src={logo} alt="Lendsqr Logo" className="logo" />
+      <div className="logo-container">
+        <img src={logo} alt="Lendsqr Logo" className="logo" />
+      </div>
 
       <div>
         {/* SWITCH ORGANIZATION */}

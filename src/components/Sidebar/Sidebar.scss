@@ -11,16 +11,26 @@
   width: 283px;
   top: 0;
   left: 0;
-  padding-top: 35px;
+  padding-top: 135px;
   // padding-left: 30px;
   padding-bottom: 16px;
   overflow-y: scroll;
 
-  .logo {
-    width: 144.8px;
-    height: 30px;
+  .logo-container {
+    position: fixed;
+    background-color: white;
+    width: 283px;
+    z-index: 999;
+    top: 0px;
+    left: 0px;
     padding-left: 30px;
+    padding-top: 35px;
+    .logo {
+      width: 144.8px;
+      height: 30px;
+    }
   }
+
   .navlinks-group {
     display: flex;
     flex-direction: column;

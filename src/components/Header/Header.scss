@@ -1,11 +1,15 @@
 @import "/src/index.scss";
 
+$header-height: 100px;
+
 .header {
+  position: fixed;
   background-color: white;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 100px;
+  height: $header-height;
   box-shadow: 3px 0px 20px 0px #0000000a;
   padding-left: 30px;
   padding-right: 30px;

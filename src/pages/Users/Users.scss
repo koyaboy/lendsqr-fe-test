@@ -239,3 +239,31 @@
     }
   }
 }
+
+/* START OF ADMIN ACTIONS POPOVER STYLES*/
+.admin-actions-container {
+  box-shadow: 3px 5px 20px 0px #0000000a;
+  border: 1px solid #545f7d0a;
+  width: 180px;
+  display: flex;
+  align-items: center;
+
+  .admin-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 22px;
+
+    button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      font-size: 0.875rem;
+      color: $text-secondary;
+    }
+  }
+}
+/*END OF ADMIN ACTIONS POPOVER STYLES*/

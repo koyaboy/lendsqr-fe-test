@@ -2,7 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { TailSpin } from "react-loader-spinner";
 import type { Users } from "../../models/Users";
 import FilterDropdown from "../../components/FilterDropdown/FilterDropdown";
+import Popover from "@mui/material/Popover";
+import Typography from "@mui/material/Typography";
 import "./Users.scss";
+import { Link } from "react-router-dom";
+
+import blacklistUserIcon from "../../assets/blacklist-user-icon.png";
+import activateUserIcon from "../../assets/activate-user-icon.png";
 
 const Users = () => {
   const [users, setUsers] = useState<Users[]>([]);
@@ -17,6 +23,9 @@ const Users = () => {
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 
   const [anchorEl, setAnchorEl] = useState<
+    Element | (() => Element) | null | undefined
+  >(null);
+  const [anchorElAdminActions, setAnchorElAdminActions] = useState<
     Element | (() => Element) | null | undefined
   >(null);
 
@@ -526,21 +535,84 @@ const Users = () => {
                           </div>
                         </div>
 
-                        {/* <div > */}
-                        <svg
-                          width="4"
-                          height="16"
-                          viewBox="0 0 4 16"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="ellipsis"
+                        <button
+                          onClick={(event) =>
+                            setAnchorElAdminActions(event.currentTarget)
+                          }
                         >
-                          <path
-                            d="M1.99992 4.1111C2.92214 4.1111 3.66658 3.36666 3.66658 2.44444C3.66658 1.52222 2.92214 0.777771 1.99992 0.777771C1.0777 0.777771 0.333252 1.52222 0.333252 2.44444C0.333252 3.36666 1.0777 4.1111 1.99992 4.1111ZM1.99992 6.33333C1.0777 6.33333 0.333252 7.07777 0.333252 7.99999C0.333252 8.92221 1.0777 9.66666 1.99992 9.66666C2.92214 9.66666 3.66658 8.92221 3.66658 7.99999C3.66658 7.07777 2.92214 6.33333 1.99992 6.33333ZM1.99992 11.8889C1.0777 11.8889 0.333252 12.6333 0.333252 13.5555C0.333252 14.4778 1.0777 15.2222 1.99992 15.2222C2.92214 15.2222 3.66658 14.4778 3.66658 13.5555C3.66658 12.6333 2.92214 11.8889 1.99992 11.8889Z"
-                            fill="#545F7D"
-                          />
-                        </svg>
-                        {/* </div> */}
+                          <svg
+                            width="4"
+                            height="16"
+                            viewBox="0 0 4 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="ellipsis"
+                          >
+                            <path
+                              d="M1.99992 4.1111C2.92214 4.1111 3.66658 3.36666 3.66658 2.44444C3.66658 1.52222 2.92214 0.777771 1.99992 0.777771C1.0777 0.777771 0.333252 1.52222 0.333252 2.44444C0.333252 3.36666 1.0777 4.1111 1.99992 4.1111ZM1.99992 6.33333C1.0777 6.33333 0.333252 7.07777 0.333252 7.99999C0.333252 8.92221 1.0777 9.66666 1.99992 9.66666C2.92214 9.66666 3.66658 8.92221 3.66658 7.99999C3.66658 7.07777 2.92214 6.33333 1.99992 6.33333ZM1.99992 11.8889C1.0777 11.8889 0.333252 12.6333 0.333252 13.5555C0.333252 14.4778 1.0777 15.2222 1.99992 15.2222C2.92214 15.2222 3.66658 14.4778 3.66658 13.5555C3.66658 12.6333 2.92214 11.8889 1.99992 11.8889Z"
+                              fill="#545F7D"
+                            />
+                          </svg>
+                        </button>
+                        <Popover
+                          open={Boolean(anchorElAdminActions)}
+                          anchorEl={anchorElAdminActions}
+                          onClose={() => setAnchorElAdminActions(null)}
+                          anchorOrigin={{
+                            vertical: "bottom",
+                            horizontal: "right",
+                          }}
+                        >
+                          <div className="admin-actions-container">
+                            <Typography sx={{ p: 2 }}>
+                              <div className="admin-actions">
+                                <Link to={`userdetails/${user._id}`}>
+                                  <button>
+                                    <svg
+                                      width="16"
+                                      height="12"
+                                      viewBox="0 0 16 12"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M15.4533 5.44011L15.4519 5.43845C15.0398 4.92184 14.0948 3.82505 12.7977 2.85586C11.4993 1.88564 9.83832 1.03611 7.99968 1.03611C6.16104 1.03611 4.50011 1.88561 3.20166 2.85582C1.9029 3.82627 0.957157 4.92466 0.545819 5.44047C0.274826 5.76662 0.277249 6.2343 0.544833 6.57367L0.544827 6.57368L0.545641 6.57468C0.956296 7.08187 1.90229 8.17692 3.20172 9.14589C4.50012 10.1141 6.16105 10.9636 7.99968 10.9636C9.83832 10.9636 11.4993 10.1141 12.7977 9.1438C14.0966 8.17315 15.0424 7.07445 15.4537 6.55838C15.7074 6.2495 15.7071 5.74924 15.4533 5.44011ZM7.99968 9.75611C6.48691 9.75611 5.06807 9.02252 3.92942 8.17201C2.84501 7.36201 2.02502 6.4537 1.63351 5.9981C2.01625 5.53083 2.83628 4.6224 3.92306 3.81583C5.06351 2.96943 6.48657 2.24347 7.99968 2.24347C9.51274 2.24347 10.9317 2.96936 12.0701 3.81576C13.1557 4.62284 13.9761 5.53202 14.3662 5.99979C13.9762 6.46752 13.1557 7.3767 12.0701 8.18379C10.9317 9.0302 9.51274 9.75611 7.99968 9.75611Z"
+                                        fill="#545F7D"
+                                        stroke="#545F7D"
+                                        stroke-width="0.2"
+                                      />
+                                      <path
+                                        d="M8.00014 2.90818C6.29675 2.90818 4.9083 4.2967 4.9083 6.00002C4.9083 7.70334 6.29682 9.09186 8.00014 9.09186C9.70346 9.09186 11.092 7.70334 11.092 6.00002C11.092 4.29669 9.70346 2.90818 8.00014 2.90818ZM8.00014 7.88386C6.96726 7.88386 6.11646 7.0324 6.11646 6.00018C6.11646 4.96728 6.96732 4.1165 8.00014 4.1165C9.03296 4.1165 9.88382 4.96736 9.88382 6.00018C9.88382 7.033 9.03296 7.88386 8.00014 7.88386Z"
+                                        fill="#545F7D"
+                                        stroke="#545F7D"
+                                        stroke-width="0.2"
+                                      />
+                                    </svg>
+                                    <span>View Details</span>
+                                  </button>
+                                </Link>
+
+                                <button>
+                                  <img
+                                    src={blacklistUserIcon}
+                                    alt="blacklist-user-icon"
+                                    style={{ width: "14px", height: "14px" }}
+                                  />
+                                  <span>Blacklist User</span>
+                                </button>
+
+                                <button>
+                                  <img
+                                    src={activateUserIcon}
+                                    alt="activate-user-icon"
+                                    style={{ width: "14px", height: "14px" }}
+                                  />
+                                  <span>Activate User</span>
+                                </button>
+                              </div>
+                            </Typography>
+                          </div>
+                        </Popover>
                       </td>
                     </tr>
                   ))}

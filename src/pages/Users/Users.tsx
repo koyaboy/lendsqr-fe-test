@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { TailSpin } from "react-loader-spinner";
 import type { Users } from "../../models/Users";
+import FilterDropdown from "../../components/FilterDropdown/FilterDropdown";
 import "./Users.scss";
 
 const Users = () => {
@@ -13,6 +14,18 @@ const Users = () => {
   const [pageNumbers, setPageNumbers] = useState<(number | string)[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
+
+  const [anchorEl, setAnchorEl] = useState<
+    Element | (() => Element) | null | undefined
+  >(null);
+  const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
+
+  const organizationRef = useRef<HTMLDivElement | null>(null);
+  const usernameRef = useRef<HTMLDivElement | null>(null);
+  const emailRef = useRef<HTMLDivElement | null>(null);
+  const phoneNumberRef = useRef<HTMLDivElement | null>(null);
+  const dateJoinedRef = useRef<HTMLDivElement | null>(null);
+  const statusRef = useRef<HTMLDivElement | null>(null);
 
   const fetchUsers = async () => {
     try {
@@ -100,6 +113,21 @@ const Users = () => {
       blacklisted: "status-blacklisted",
     };
     return statusStyles[status.toLowerCase()];
+  };
+
+  const showFilterDropdown = (
+    ref: React.RefObject<HTMLDivElement> | undefined
+  ) => {
+    if (ref) {
+      setAnchorEl(ref.current);
+    }
+
+    setIsFilterOpen(true);
+  };
+
+  const handleFilterDropdownClose = () => {
+    setAnchorEl(null);
+    setIsFilterOpen(false);
   };
 
   useEffect(() => {
@@ -311,9 +339,11 @@ const Users = () => {
               <thead>
                 <tr>
                   <th>
-                    <div>
+                    <div ref={organizationRef}>
                       <p>ORGANIZATION</p>
-                      <button>
+                      <button
+                        onClick={() => showFilterDropdown(organizationRef)}
+                      >
                         <svg
                           width="16"
                           height="12"
@@ -330,9 +360,9 @@ const Users = () => {
                     </div>
                   </th>
                   <th>
-                    <div>
+                    <div ref={usernameRef}>
                       <p>USERNAME</p>
-                      <button>
+                      <button onClick={() => showFilterDropdown(usernameRef)}>
                         <svg
                           width="16"
                           height="12"
@@ -349,9 +379,9 @@ const Users = () => {
                     </div>
                   </th>
                   <th>
-                    <div>
+                    <div ref={emailRef}>
                       <p>EMAIL</p>
-                      <button>
+                      <button onClick={() => showFilterDropdown(emailRef)}>
                         <svg
                           width="16"
                           height="12"
@@ -368,9 +398,11 @@ const Users = () => {
                     </div>
                   </th>
                   <th>
-                    <div>
+                    <div ref={phoneNumberRef}>
                       <p>PHONE NUMBER</p>
-                      <button>
+                      <button
+                        onClick={() => showFilterDropdown(phoneNumberRef)}
+                      >
                         <svg
                           width="16"
                           height="12"
@@ -387,9 +419,9 @@ const Users = () => {
                     </div>
                   </th>
                   <th>
-                    <div>
+                    <div ref={dateJoinedRef}>
                       <p>DATE JOINED</p>
-                      <button>
+                      <button onClick={() => showFilterDropdown(dateJoinedRef)}>
                         <svg
                           width="16"
                           height="12"
@@ -406,9 +438,9 @@ const Users = () => {
                     </div>
                   </th>
                   <th>
-                    <div>
+                    <div ref={statusRef}>
                       <p>STATUS</p>
-                      <button>
+                      <button onClick={() => showFilterDropdown(statusRef)}>
                         <svg
                           width="16"
                           height="12"
@@ -466,6 +498,13 @@ const Users = () => {
                     </tr>
                   ))}
               </tbody>
+
+              {isFilterOpen && (
+                <FilterDropdown
+                  anchorEl={anchorEl}
+                  onClose={handleFilterDropdownClose}
+                />
+              )}
             </table>
           </div>
         )}

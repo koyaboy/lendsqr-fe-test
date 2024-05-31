@@ -1,19 +1,11 @@
 @import "/src/index.scss";
 
-/* START OF POPOVER STYLES */
-.MuiPaper-root-MuiPopover-paper {
-  box-shadow: 3px 5px 20px 0px #0000000a !important;
-  border: 1px solid #545f7d24 !important;
-  width: 270px !important;
+.filter-dropdown-container {
+  width: 270px;
+  border: 1px solid #545f7d24;
+  box-shadow: 3px 5px 20px 0px #0000000a;
+  padding: 30px 20px;
 }
-
-.MuiTypography-root {
-  padding-left: 20px !important;
-  padding-right: 20px !important;
-  padding-top: 30px !important;
-  padding-bottom: 28px !important;
-}
-/* END OF POPOVER STYLES */
 
 /* START OF REACT DATE WRAPPER STYLES */
 .react-datepicker-wrapper {

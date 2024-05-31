@@ -15,6 +15,18 @@ $text-secondary: #545f7d;
   font-style: normal;
 }
 
+/* START OF POPOVER RESET STYLES */
+.MuiPaper-root {
+  box-shadow: none !important;
+  border: 0 !important;
+}
+
+.MuiTypography-root {
+  padding: 0 !important;
+  font-family: "Work Sans", sans-serif !important;
+}
+/* END OF POPOVER RESET STYLES */
+
 /* CSS RESET */
 html,
 body,

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import Dashboard from "./pages/Dashboard/Dashboard.tsx";
 import Users from "./pages/Users/Users";
-import UserDetails, { getDetailsOfUser } from "./pages/UserDetails/UserDetails";
+import UserDetails from "./pages/UserDetails/UserDetails";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.scss";
 
@@ -23,7 +23,6 @@ const router = createBrowserRouter([
           {
             path: "userdetails/:userId",
             element: <UserDetails />,
-            loader: getDetailsOfUser,
           },
         ],
       },

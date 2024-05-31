@@ -28,6 +28,7 @@ const Users = () => {
   const [anchorElAdminActions, setAnchorElAdminActions] = useState<
     Element | (() => Element) | null | undefined
   >(null);
+  const [userId, setUserId] = useState<string>("");
 
   const organizationRef = useRef<HTMLDivElement | null>(null);
   const usernameRef = useRef<HTMLDivElement | null>(null);
@@ -536,9 +537,10 @@ const Users = () => {
                         </div>
 
                         <button
-                          onClick={(event) =>
-                            setAnchorElAdminActions(event.currentTarget)
-                          }
+                          onClick={(event) => {
+                            setAnchorElAdminActions(event.currentTarget);
+                            setUserId(user._id);
+                          }}
                         >
                           <svg
                             width="4"
@@ -566,7 +568,7 @@ const Users = () => {
                           <div className="admin-actions-container">
                             <Typography sx={{ p: 2 }}>
                               <div className="admin-actions">
-                                <Link to={`userdetails/${user._id}`}>
+                                <Link to={`userdetails/${userId}`}>
                                   <button>
                                     <svg
                                       width="16"

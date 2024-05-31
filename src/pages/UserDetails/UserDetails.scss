@@ -169,24 +169,6 @@
       }
     }
   }
-
-  //   .topbar-menu a::after,
-  // .topbar-menu a.active::after {
-  //     content: "";
-  //     position: absolute;
-  //     top: 55px;
-  //     left: 0;
-  //     height: 3px;
-  //     width: 100%;
-  //     background-color: white;
-  //     opacity: 1;
-  // }
-
-  // .topbar-menu a::after {
-  //     width: 0;
-  //     opacity: 0.5021;
-  //     transition: width 0.5s;
-  // }
 }
 
 .details {
@@ -207,6 +189,9 @@
     margin-top: 30px;
     padding-bottom: 28px;
     border-bottom: 1px solid rgba(33, 63, 125, 0.1);
+    &:last-child {
+      border-bottom: 0;
+    }
     h3 {
       color: $text-primary;
       font-weight: 500;
@@ -217,9 +202,10 @@
     .info-container {
       display: flex;
       justify-content: space-between;
-      gap: 30px;
+      gap: 100px;
       flex-wrap: wrap;
       margin-top: 30px;
+      padding-right: 66px;
 
       .info {
         display: flex;

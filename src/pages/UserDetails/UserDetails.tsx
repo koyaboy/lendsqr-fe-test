@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from "react";
 import type { Users } from "../../models/Users";
 import "./UserDetails.scss";
-import { useLoaderData } from "react-router-dom";
 import { Link } from "react-router-dom";
-
-export function getDetailsOfUser({ params }: any) {
-  let user: Users | undefined;
-  const userId: string = params.userId;
-  const users: Users[] = JSON.parse(localStorage.getItem("Users") || "");
-
-  if (users) {
-    user = users.find((user) => userId == user._id);
-  }
-
-  return { user };
-}
+import { useParams } from "react-router-dom";
 
 const UserDetails = () => {
-  const { user }: Users = useLoaderData();
+  const [users, setUsers] = useState<Users[]>(
+    JSON.parse(localStorage.getItem("Users") || "")
+  );
+
+  const [user, setUser]: Users = useState<Users>({});
+  const { userId } = useParams();
+
+  useEffect(() => {
+    const user = users.find((user) => user._id == userId);
+    setUser(user);
+  }, []);
 
   return (
     <>
@@ -70,8 +68,8 @@ const UserDetails = () => {
             </div>
 
             <div className="user-info">
-              <h2>Grace Effiom</h2>
-              <p>LSQFf587g90</p>
+              <h2>{user.username}</h2>
+              <p>{user.ref}</p>
             </div>
           </div>
 
@@ -125,32 +123,34 @@ const UserDetails = () => {
           </div>
 
           <div className="bank-info-container">
-            <p className="amount">₦200,000.00</p>
-            <p className="bank-account">9912345678/Providus Bank</p>
+            <p className="amount">₦{user.loan_repayment}.00</p>
+            <p className="bank-account">
+              {user.account_number}/{user.bank}
+            </p>
           </div>
         </div>
 
         <nav>
           <ul>
             <li>
-              <a href="/" className="active">
+              <a href="" className="active">
                 General Details
               </a>
             </li>
             <li>
-              <a href="/">Documents</a>
+              <a href="">Documents</a>
             </li>
             <li>
-              <a href="/">Bank Details</a>
+              <a href="">Bank Details</a>
             </li>
             <li>
-              <a href="/">Loans</a>
+              <a href="">Loans</a>
             </li>
             <li>
-              <a href="/">Savings</a>
+              <a href="">Savings</a>
             </li>
             <li>
-              <a href="/">App and System</a>
+              <a href="">App and System</a>
             </li>
           </ul>
         </nav>
@@ -163,7 +163,116 @@ const UserDetails = () => {
           <div className="info-container">
             <div className="info">
               <h3 className="title">FULL NAME</h3>
-              <p className="desc">Grace Effiom</p>
+              <p className="desc">{user.username}</p>
+            </div>
+            <div className="info">
+              <h3 className="title">PHONE NUMBER</h3>
+              <p className="desc">{user.phone}</p>
+            </div>
+            <div className="info">
+              <h3 className="title">EMAIL ADDRESS</h3>
+              <p className="desc">{user.email}</p>
+            </div>
+            <div className="info">
+              <h3 className="title">BVN</h3>
+              <p className="desc">{user.bvn}</p>
+            </div>
+            <div className="info">
+              <h3 className="title">GENDER</h3>
+              <p className="desc">{user.gender}</p>
+            </div>
+            <div className="info">
+              <h3 className="title">MARTIAL STATUS</h3>
+              <p className="desc">{user.marital_status}</p>
+            </div>
+            <div className="info">
+              <h3 className="title">CHILDREN</h3>
+              <p className="desc">{user.children}</p>
+            </div>
+            <div className="info">
+              <h3 className="title">TYPE OF RESIDENCE</h3>
+              <p className="desc">{user.type_of_residence}</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Education and Employment</h3>
+
+          <div className="info-container">
+            <div className="info">
+              <h3 className="title">LEVEL OF EDUCATION</h3>
+              <p className="desc">{user.level_of_education}</p>
+            </div>
+            <div className="info">
+              <h3 className="title">EMPLOYMENT STATUS</h3>
+              <p className="desc">{user.employment_status}</p>
+            </div>
+            <div className="info">
+              <h3 className="title">SECTOR OF EMPLOYMENT</h3>
+              <p className="desc">{user.sector_of_employment}</p>
+            </div>
+            <div className="info">
+              <h3 className="title">DURATION OF EMPLOYMENT</h3>
+              <p className="desc">{user.duration_of_employment}</p>
+            </div>
+            <div className="info">
+              <h3 className="title">OFFICE EMAIL</h3>
+              <p className="desc">{user.office_email}</p>
+            </div>
+            <div className="info">
+              <h3 className="title">MONTHLY INCOME</h3>
+              <p className="desc">{user.monthly_income}</p>
+            </div>
+            <div className="info">
+              <h3 className="title">LOAN REPAYMENT</h3>
+              <p className="desc">{user.loan_repayment}</p>
+            </div>
+            <div className="info">
+              <h3 className="title">TYPE OF RESIDENCE</h3>
+              <p className="desc">{user.type_of_residence}</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>SOCIALS</h3>
+
+          <div className="info-container">
+            <div className="info">
+              <h3 className="title">TWITTER</h3>
+              <p className="desc">{user.twitter}</p>
+            </div>
+            <div className="info">
+              <h3 className="title">FACEBOOK</h3>
+              <p className="desc">{user.facebook}</p>
+            </div>
+            <div className="info">
+              <h3 className="title">INSTAGRAM</h3>
+              <p className="desc">{user.instagram}</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>GUARANTOR</h3>
+
+          <div className="info-container">
+            <div className="info">
+              <h3 className="title">FULL NAME</h3>
+              <p className="desc">{user.guarantor_full_name}</p>
+            </div>
+            <div className="info">
+              <h3 className="title">PHONE NUMBER</h3>
+              <p className="desc">{user.guarantor_phone}</p>
+            </div>
+            <div className="info">
+              <h3 className="title">EMAIL ADDRESS</h3>
+              <p className="desc">{user.guarantor_email}</p>
+            </div>
+            <div className="info">
+              <h3 className="title">RELATIONSHIP</h3>
+              <p className="desc">{user.guarantor_relationship}</p>
             </div>
           </div>
         </section>

@@ -3,20 +3,16 @@ import { TailSpin } from "react-loader-spinner";
 import type { Users } from "../../models/Users";
 import "./Users.scss";
 
-function getStatusClassName(status: string) {
-  const statusStyles: any = {
-    inactive: "status-inactive",
-    active: "status-active",
-    pending: "status-pending",
-    blacklisted: "status-blacklisted",
-  };
-  return statusStyles[status.toLowerCase()];
-}
-
 const Users = () => {
   const [users, setUsers] = useState<Users[]>([]);
+  const [displayedUsers, setDisplayedUsers] = useState<Users[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
+
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [pageNumbers, setPageNumbers] = useState<(number | string)[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 
   const fetchUsers = async () => {
     try {
@@ -30,6 +26,7 @@ const Users = () => {
 
       localStorage.setItem("Users", JSON.stringify(result));
       setUsers(result);
+      setTotalPages(result.length / itemsPerPage);
       setIsLoading(false);
     } catch (error: any) {
       setError(error);
@@ -37,9 +34,84 @@ const Users = () => {
     }
   };
 
+  const displayUsers = (currentPage: number, users: Users[]) => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    setDisplayedUsers(users.slice(startIndex, endIndex));
+  };
+
+  const generatePageNumbers = () => {
+    const delta = 1;
+    const range: (number | string)[] = [];
+
+    range.push(1);
+
+    if (currentPage - delta > 2) {
+      range.push("...");
+    }
+
+    let start = Math.max(2, currentPage - delta);
+    let end = Math.min(totalPages - 1, currentPage + delta);
+
+    if (currentPage <= delta + 1) {
+      end = Math.min(totalPages - 1, start + 2 * delta);
+    }
+
+    if (currentPage >= totalPages - delta) {
+      start = Math.max(2, end - 2 * delta);
+    }
+
+    for (let i = start; i <= end; i++) {
+      range.push(i);
+    }
+
+    if (currentPage + delta < totalPages - 1) {
+      range.push("...");
+    }
+
+    if (totalPages > 1) {
+      range.push(totalPages);
+    }
+
+    setPageNumbers(range);
+  };
+
+  const goToPrevPage = () => {
+    if (currentPage == 1) {
+      return;
+    }
+    let page = currentPage - 1;
+    setCurrentPage(page);
+  };
+
+  const goToNextPage = () => {
+    if (currentPage == totalPages) {
+      return;
+    }
+    let page = currentPage + 1;
+    setCurrentPage(page);
+  };
+
+  const getStatusClassName = (status: string) => {
+    const statusStyles: any = {
+      inactive: "status-inactive",
+      active: "status-active",
+      pending: "status-pending",
+      blacklisted: "status-blacklisted",
+    };
+    return statusStyles[status.toLowerCase()];
+  };
+
   useEffect(() => {
     fetchUsers();
   }, []);
+
+  useEffect(() => {
+    if (users.length > 0) {
+      generatePageNumbers();
+      displayUsers(currentPage, users);
+    }
+  }, [users, currentPage, totalPages]);
 
   return (
     <>
@@ -356,8 +428,8 @@ const Users = () => {
               </thead>
 
               <tbody>
-                {users &&
-                  users.map((user) => (
+                {displayedUsers &&
+                  displayedUsers.map((user) => (
                     <tr key={user._id}>
                       <td>{user.organization}</td>
                       <td>{user.username}</td>
@@ -395,6 +467,88 @@ const Users = () => {
                   ))}
               </tbody>
             </table>
+          </div>
+        )}
+
+        {/* PAGINATION */}
+        {!isLoading && (
+          <div className="pagination">
+            <div>
+              <p className="pagination-info">
+                Showing
+                <div className="custom-select-wrapper">
+                  <select
+                    className="custom-select"
+                    value={itemsPerPage}
+                    onChange={(e) => {
+                      let newItemsPerPage = parseInt(e.target.value);
+                      setItemsPerPage(newItemsPerPage);
+                      setCurrentPage(1);
+                      setTotalPages(Math.ceil(users.length / newItemsPerPage));
+                    }}
+                  >
+                    <option value={10}>10</option>
+                    <option value={20}>20</option>
+                    <option value={50}>50</option>
+                    <option value={100}>100</option>
+                  </select>
+                </div>
+                out of {users.length}
+              </p>
+            </div>
+
+            <div className="toggle-pages-container">
+              <button className="prev" onClick={() => goToPrevPage()}>
+                <svg
+                  width="8"
+                  height="12"
+                  viewBox="0 0 8 12"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7.00609 10.0573C7.84719 10.8984 6.54344 12.1595 5.745 11.3184L0.994244 6.56759C0.61581 6.23127 0.61581 5.64282 0.994244 5.3065L5.61858 0.640017C6.45967 -0.158963 7.72082 1.10267 6.87967 1.94322L2.8859 5.937L7.00609 10.0573Z"
+                    fill="#213F7D"
+                  />
+                </svg>
+              </button>
+
+              <div className="pageNumbers">
+                {pageNumbers &&
+                  pageNumbers.map((page) => (
+                    <>
+                      <button
+                        key={page}
+                        className={`page ${
+                          page == currentPage ? "page-active" : ""
+                        }`}
+                        onClick={() => {
+                          if (typeof page === "number") {
+                            setCurrentPage(page);
+                          }
+                        }}
+                      >
+                        {page}
+                      </button>
+                    </>
+                  ))}
+              </div>
+
+              <button className="next" onClick={() => goToNextPage()}>
+                <svg
+                  width="8"
+                  height="12"
+                  viewBox="0 0 8 12"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M0.993905 1.94274C0.152813 1.10165 1.45656 -0.159498 2.255 0.68165L7.00576 5.43241C7.38419 5.76873 7.38419 6.35718 7.00576 6.6935L2.38142 11.36C1.54033 12.159 0.279177 10.8973 1.12033 10.0568L5.1141 6.063L0.993905 1.94274Z"
+                    fill="#213F7D"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         )}
       </div>

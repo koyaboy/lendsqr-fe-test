@@ -8,10 +8,48 @@ import "react-datepicker/dist/react-datepicker.css";
 interface FilterDropdownProps {
   anchorEl: Element | (() => Element) | null | undefined;
   onClose: (event: {}, reason: "backdropClick" | "escapeKeyDown") => void;
+  onFilter: (filters: Record<string, any>) => void;
+  onReset: () => void;
 }
 
-const FilterDropdown = ({ anchorEl, onClose }: FilterDropdownProps) => {
-  const [startDate, setStartDate] = useState<Date | null>(null);
+const FilterDropdown = ({
+  anchorEl,
+  onClose,
+  onFilter,
+  onReset,
+}: FilterDropdownProps) => {
+  const [organization, setOrganization] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [date, setDate] = useState<Date | null>(null);
+  const [phone, setPhone] = useState<string>("");
+  const [status, setStatus] = useState<string>("");
+
+  const handleReset = () => {
+    setOrganization("");
+    setUsername("");
+    setEmail("");
+    setDate(null);
+    setPhone("");
+    setStatus("");
+
+    onReset();
+  };
+
+  const handleFilter = (event: React.FormEvent) => {
+    event.preventDefault();
+    const filters = {
+      organization,
+      username,
+      email,
+      date,
+      phone,
+      status,
+    };
+    onFilter(filters);
+    onClose({}, "backdropClick");
+  };
+
   return (
     <div className="popover">
       <Popover
@@ -24,7 +62,7 @@ const FilterDropdown = ({ anchorEl, onClose }: FilterDropdownProps) => {
         }}
       >
         <Typography sx={{ p: 2 }}>
-          <form className="form">
+          <form className="form" onSubmit={handleFilter}>
             <div className="form-content-container">
               <div className="group">
                 <label htmlFor="organization">Organization</label>
@@ -33,10 +71,10 @@ const FilterDropdown = ({ anchorEl, onClose }: FilterDropdownProps) => {
                     className="custom-select-filter"
                     name="organization"
                     id="organization"
+                    value={organization}
+                    onChange={(e) => setOrganization(e.target.value)}
                   >
-                    <option value="" selected>
-                      Select
-                    </option>
+                    <option value="">Select</option>
                     <option value="lendstar">Lendstar</option>
                     <option value="lendsqr">Lendsqr</option>
                     <option value="Kredi MFB">Kredi MFB</option>
@@ -52,6 +90,8 @@ const FilterDropdown = ({ anchorEl, onClose }: FilterDropdownProps) => {
                   id="username"
                   placeholder="User"
                   className="input"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
               <div className="group">
@@ -61,14 +101,16 @@ const FilterDropdown = ({ anchorEl, onClose }: FilterDropdownProps) => {
                   id="email"
                   placeholder="Email"
                   className="input"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="group">
                 <label htmlFor="date">Date</label>
                 <DatePicker
                   showIcon
-                  selected={startDate}
-                  onChange={(date) => setStartDate(date)}
+                  selected={date}
+                  onChange={(date) => setDate(date)}
                   placeholderText="Date"
                   icon={
                     <svg
@@ -117,6 +159,8 @@ const FilterDropdown = ({ anchorEl, onClose }: FilterDropdownProps) => {
                   id="phone"
                   placeholder="Phone Number"
                   className="input"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
               <div className="group">
@@ -126,10 +170,10 @@ const FilterDropdown = ({ anchorEl, onClose }: FilterDropdownProps) => {
                     className="custom-select-filter"
                     name="status"
                     id="status"
+                    value={status}
+                    onChange={(e) => setStatus(e.target.value)}
                   >
-                    <option value="" selected>
-                      Select
-                    </option>
+                    <option value="">Select</option>
                     <option value="Active">Active</option>
                     <option value="Inactive">Inactive</option>
                     <option value="Blacklisted">Blacklisted</option>
@@ -140,8 +184,12 @@ const FilterDropdown = ({ anchorEl, onClose }: FilterDropdownProps) => {
             </div>
 
             <div className="buttons-container">
-              <button className="reset">Reset</button>
-              <button className="filter">Filter</button>
+              <button type="button" className="reset" onClick={handleReset}>
+                Reset
+              </button>
+              <button type="submit" className="filter">
+                Filter
+              </button>
             </div>
           </form>
         </Typography>

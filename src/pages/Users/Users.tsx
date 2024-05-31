@@ -7,6 +7,7 @@ import "./Users.scss";
 const Users = () => {
   const [users, setUsers] = useState<Users[]>([]);
   const [displayedUsers, setDisplayedUsers] = useState<Users[]>([]);
+  const [filteredUsers, setFilteredUsers] = useState<Users[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
 
@@ -18,7 +19,6 @@ const Users = () => {
   const [anchorEl, setAnchorEl] = useState<
     Element | (() => Element) | null | undefined
   >(null);
-  const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
 
   const organizationRef = useRef<HTMLDivElement | null>(null);
   const usernameRef = useRef<HTMLDivElement | null>(null);
@@ -93,6 +93,11 @@ const Users = () => {
     if (currentPage == 1) {
       return;
     }
+
+    if (pageNumbers.length <= 1) {
+      return;
+    }
+
     let page = currentPage - 1;
     setCurrentPage(page);
   };
@@ -101,8 +106,15 @@ const Users = () => {
     if (currentPage == totalPages) {
       return;
     }
+    if (pageNumbers.length <= 1) {
+      return;
+    }
     let page = currentPage + 1;
     setCurrentPage(page);
+
+    if (filteredUsers.length > 0) {
+      displayUsers(1, filteredUsers);
+    }
   };
 
   const getStatusClassName = (status: string) => {
@@ -121,13 +133,45 @@ const Users = () => {
     if (ref) {
       setAnchorEl(ref.current);
     }
-
-    setIsFilterOpen(true);
   };
 
   const handleFilterDropdownClose = () => {
     setAnchorEl(null);
-    setIsFilterOpen(false);
+  };
+
+  const parseDate = (dateString: string) => {
+    const date = new Date(Date.parse(dateString));
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
+  const handleFilter = (filters: Record<string, any>) => {
+    const filteredUsers = users.filter((user) => {
+      const userDateJoined = parseDate(user.date_joined);
+      const filterDate = parseDate(filters.date);
+      return (
+        (!filters.organization || user.organization === filters.organization) &&
+        (!filters.username || user.username.includes(filters.username)) &&
+        (!filters.email || user.email.includes(filters.email)) &&
+        (!filters.date || userDateJoined == filterDate) &&
+        (!filters.phone || user.phone.includes(filters.phone)) &&
+        (!filters.status || user.status === filters.status)
+      );
+    });
+
+    setFilteredUsers(filteredUsers);
+    setCurrentPage(1);
+    setTotalPages(Math.ceil(filteredUsers.length / itemsPerPage));
+  };
+
+  const handleFilterDropdownReset = () => {
+    setCurrentPage(1);
+    setTotalPages(Math.ceil(users.length / itemsPerPage));
+    setFilteredUsers([]);
+    displayUsers(1, users);
   };
 
   useEffect(() => {
@@ -135,11 +179,14 @@ const Users = () => {
   }, []);
 
   useEffect(() => {
-    if (users.length > 0) {
-      generatePageNumbers();
+    generatePageNumbers();
+
+    if (filteredUsers.length !== 0) {
+      displayUsers(currentPage, filteredUsers);
+    } else {
       displayUsers(currentPage, users);
     }
-  }, [users, currentPage, totalPages]);
+  }, [currentPage, totalPages]);
 
   return (
     <>
@@ -499,12 +546,13 @@ const Users = () => {
                   ))}
               </tbody>
             </table>
-            {isFilterOpen && (
-              <FilterDropdown
-                anchorEl={anchorEl}
-                onClose={handleFilterDropdownClose}
-              />
-            )}
+
+            <FilterDropdown
+              anchorEl={anchorEl}
+              onClose={handleFilterDropdownClose}
+              onFilter={handleFilter}
+              onReset={handleFilterDropdownReset}
+            />
           </div>
         )}
 
@@ -522,7 +570,15 @@ const Users = () => {
                       let newItemsPerPage = parseInt(e.target.value);
                       setItemsPerPage(newItemsPerPage);
                       setCurrentPage(1);
-                      setTotalPages(Math.ceil(users.length / newItemsPerPage));
+                      if (filteredUsers.length > 0) {
+                        setTotalPages(
+                          Math.ceil(filteredUsers.length / newItemsPerPage)
+                        );
+                      } else {
+                        setTotalPages(
+                          Math.ceil(users.length / newItemsPerPage)
+                        );
+                      }
                     }}
                   >
                     <option value={10}>10</option>
@@ -531,7 +587,8 @@ const Users = () => {
                     <option value={100}>100</option>
                   </select>
                 </div>
-                out of {users.length}
+                out of{" "}
+                {filteredUsers.length > 0 ? filteredUsers.length : users.length}
               </p>
             </div>
 

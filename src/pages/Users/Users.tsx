@@ -498,14 +498,13 @@ const Users = () => {
                     </tr>
                   ))}
               </tbody>
-
-              {isFilterOpen && (
-                <FilterDropdown
-                  anchorEl={anchorEl}
-                  onClose={handleFilterDropdownClose}
-                />
-              )}
             </table>
+            {isFilterOpen && (
+              <FilterDropdown
+                anchorEl={anchorEl}
+                onClose={handleFilterDropdownClose}
+              />
+            )}
           </div>
         )}
 

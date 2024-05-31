@@ -1,0 +1,148 @@
+@import "/src/index.scss";
+
+/* START OF POPOVER STYLES */
+.MuiPaper-root-MuiPopover-paper {
+  box-shadow: 3px 5px 20px 0px #0000000a !important;
+  border: 1px solid #545f7d24 !important;
+  width: 270px !important;
+}
+
+.MuiTypography-root {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  padding-top: 30px !important;
+  padding-bottom: 28px !important;
+}
+/* END OF POPOVER STYLES */
+
+/* START OF REACT DATE WRAPPER STYLES */
+.react-datepicker-wrapper {
+  border: 1px solid rgba(33, 63, 125, 0.2) !important;
+  height: 40px;
+  border-radius: 8px;
+}
+.react-datepicker__input-container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.react-datepicker__calendar-icon {
+  padding: 0 !important;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px;
+}
+
+.react-datepicker__view-calendar-icon input {
+  padding: 0 !important;
+  padding-left: 20px !important;
+  height: 100%;
+  outline: none;
+  border: none;
+  font-size: 0.875rem;
+  color: $text-secondary;
+  &:focus {
+    outline: none;
+  }
+}
+/*END OF REACT DATE WRAPPER STYLES*/
+
+.form {
+  font-family: "Work Sans", sans-serif;
+  .form-content-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: $text-secondary;
+    }
+
+    .input {
+      border: 1px solid rgba(33, 63, 125, 0.2);
+      height: 40px;
+      border-radius: 8px;
+      padding-left: 20px;
+      font-size: 0.875rem;
+      color: $text-secondary;
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .custom-select-filter-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    .custom-select-filter {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      outline: none;
+      background-color: white;
+      border: 1px solid rgba(33, 63, 125, 0.2);
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding-top: 2px;
+      padding-left: 20px;
+      height: 40px;
+      border-radius: 8px;
+
+      color: $text-secondary;
+      font-weight: 400;
+      font-size: 0.875rem;
+    }
+
+    .custom-select-filter-wrapper::after {
+      content: "";
+      background: url("../../assets/dropdown2.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      width: 14px;
+      height: 14px;
+      font-size: 12px;
+      color: #555;
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none; /* Allows clicking through the custom arrow */
+    }
+  }
+
+  .buttons-container {
+    display: flex;
+    gap: 14px;
+    margin-top: 30px;
+
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+      height: 40px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+    }
+    .reset {
+      border: 1px solid $text-secondary;
+      color: $text-secondary;
+    }
+    .filter {
+      background-color: #39cdcc;
+      border: 1px solid #39cdcc;
+      color: white;
+    }
+  }
+}

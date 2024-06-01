@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./Login.scss";
 import logo from "../../assets/logo.png";
 import SignInImage from "../../assets/sign-in-img.png";
+import { useNavigate } from "react-router-dom";
 
 import { useForm, SubmitHandler } from "react-hook-form";
 
@@ -16,13 +17,33 @@ const loginCredentials = {
 };
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  const wrongCredentialsRef: React.RefObject<HTMLDivElement> | null =
+    useRef<HTMLDivElement>(null);
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<LoginFormInput>();
-  const onSubmit: SubmitHandler<LoginFormInput> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<LoginFormInput> = (data: LoginFormInput) => {
+    if (
+      data.email == loginCredentials.email &&
+      data.password == loginCredentials.password
+    ) {
+      if (wrongCredentialsRef && wrongCredentialsRef.current) {
+        wrongCredentialsRef.current.style.display = "none";
+      }
+      localStorage.setItem("isAuthenticated", JSON.stringify(true));
+      navigate("/dashboard", { replace: true });
+    } else {
+      if (wrongCredentialsRef && wrongCredentialsRef.current) {
+        wrongCredentialsRef.current.style.display = "block";
+      }
+    }
+  };
 
   return (
     <main className="login">
@@ -34,6 +55,9 @@ const Login = () => {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="login-container">
+          <div ref={wrongCredentialsRef} className="wrong-credentials-error">
+            <p>Wrong Email or Password</p>
+          </div>
           <div className="heading-section">
             <h1>Welcome!</h1>
             <p>Enter details to login.</p>

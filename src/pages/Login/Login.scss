@@ -84,9 +84,15 @@
     .login-container {
       width: 72%;
 
-      // @media screen and (max-width: 985px) {
-      //   display: none;
-      // }
+      .wrong-credentials-error {
+        color: #e4033b;
+        background-color: #f7f7f7;
+        padding: 20px;
+        text-align: center;
+        font-size: 1.35rem;
+        margin-bottom: 12px;
+        display: none;
+      }
       @media screen and (max-width: 985px) {
         width: 88%;
       }

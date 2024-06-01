@@ -1,0 +1,26 @@
+@import "../../components/Header/Header.scss";
+
+.content {
+  display: flex;
+
+  main {
+    width: calc(100% - 283px);
+    margin-left: 283px;
+    padding: 60px;
+    padding-top: calc(60px + $header-height);
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .content {
+    display: block;
+
+    main {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+  .sidebar {
+    display: none;
+  }
+}

@@ -13,7 +13,7 @@ import activateUserIcon from "../../assets/activate-user-icon.png";
 const Users = () => {
   const [users, setUsers] = useState<Users[]>([]);
   const [displayedUsers, setDisplayedUsers] = useState<Users[]>([]);
-  const [filteredUsers, setFilteredUsers] = useState<Users[]>([]);
+  const [filteredUsers, setFilteredUsers] = useState<Users[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
 
@@ -122,7 +122,7 @@ const Users = () => {
     let page = currentPage + 1;
     setCurrentPage(page);
 
-    if (filteredUsers.length > 0) {
+    if (filteredUsers) {
       displayUsers(1, filteredUsers);
     }
   };
@@ -164,14 +164,19 @@ const Users = () => {
       const filterDate = parseDate(filters.date);
       return (
         (!filters.organization || user.organization === filters.organization) &&
-        (!filters.username || user.username.includes(filters.username)) &&
-        (!filters.email || user.email.includes(filters.email)) &&
+        (!filters.username ||
+          user.username
+            .toLowerCase()
+            .includes(filters.username.toLowerCase())) &&
+        (!filters.email ||
+          user.email.toLowerCase().includes(filters.email.toLowerCase())) &&
         (!filters.date || userDateJoined == filterDate) &&
         (!filters.phone || user.phone.includes(filters.phone)) &&
         (!filters.status || user.status === filters.status)
       );
     });
 
+    console.log(filteredUsers);
     setFilteredUsers(filteredUsers);
     setCurrentPage(1);
     setTotalPages(Math.ceil(filteredUsers.length / itemsPerPage));
@@ -180,7 +185,7 @@ const Users = () => {
   const handleFilterDropdownReset = () => {
     setCurrentPage(1);
     setTotalPages(Math.ceil(users.length / itemsPerPage));
-    setFilteredUsers([]);
+    setFilteredUsers(null);
     displayUsers(1, users);
   };
 
@@ -191,7 +196,7 @@ const Users = () => {
   useEffect(() => {
     generatePageNumbers();
 
-    if (filteredUsers.length !== 0) {
+    if (filteredUsers) {
       displayUsers(currentPage, filteredUsers);
     } else {
       displayUsers(currentPage, users);
@@ -644,7 +649,7 @@ const Users = () => {
                       let newItemsPerPage = parseInt(e.target.value);
                       setItemsPerPage(newItemsPerPage);
                       setCurrentPage(1);
-                      if (filteredUsers.length > 0) {
+                      if (filteredUsers) {
                         setTotalPages(
                           Math.ceil(filteredUsers.length / newItemsPerPage)
                         );
@@ -661,8 +666,7 @@ const Users = () => {
                     <option value={100}>100</option>
                   </select>
                 </div>
-                out of{" "}
-                {filteredUsers.length > 0 ? filteredUsers.length : users.length}
+                out of {filteredUsers ? filteredUsers.length : users.length}
               </p>
             </div>
 

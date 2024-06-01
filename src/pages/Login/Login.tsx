@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import "./Login.scss";
 import logo from "../../assets/logo.png";
 import SignInImage from "../../assets/sign-in-img.png";
@@ -17,10 +17,16 @@ const loginCredentials = {
 };
 
 const Login = () => {
+  const [passwordType, setPasswordType] = useState("password");
+
   const navigate = useNavigate();
 
   const wrongCredentialsRef: React.RefObject<HTMLDivElement> | null =
     useRef<HTMLDivElement>(null);
+  const passwordRef: React.RefObject<HTMLInputElement> | null =
+    useRef<HTMLInputElement>(null);
+  const testRef: React.RefObject<HTMLElement> | null =
+    useRef<HTMLElement>(null);
 
   const {
     register,
@@ -28,6 +34,13 @@ const Login = () => {
     watch,
     formState: { errors },
   } = useForm<LoginFormInput>();
+
+  const togglePasswordVisibility = () => {
+    setPasswordType((prevType) =>
+      prevType === "password" ? "text" : "password"
+    );
+  };
+
   const onSubmit: SubmitHandler<LoginFormInput> = (data: LoginFormInput) => {
     if (
       data.email == loginCredentials.email &&
@@ -85,19 +98,25 @@ const Login = () => {
             )}
             <div className="password-container">
               <input
-                type="password"
+                type={passwordType}
                 placeholder="Password"
                 {...register("password", { required: true })}
                 aria-invalid={errors.password ? "true" : "false"}
               />
-              <button className="show">SHOW</button>
+              <button
+                type="button"
+                className="show"
+                onClick={togglePasswordVisibility}
+              >
+                {passwordType === "password" ? "SHOW" : "HIDE"}
+              </button>
             </div>
             {errors.password?.type === "required" && (
               <p role="alert" className="validation-error-message">
                 Password is required
               </p>
             )}
-            <a href="/" className="forgot-password">
+            <a href="" className="forgot-password">
               FORGOT PASSWORD?
             </a>
           </div>

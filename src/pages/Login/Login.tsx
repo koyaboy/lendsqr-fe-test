@@ -6,8 +6,9 @@ import SignInImage from "../../assets/sign-in-img.png";
 const Login = () => {
   return (
     <main className="login">
+      <img src={logo} alt="Logo" className="logo" />
+
       <div className="image-section">
-        <img src={logo} alt="Logo" className="logo" />
         <img src={SignInImage} alt="Sign In Image" className="sign-in-img" />
       </div>
 

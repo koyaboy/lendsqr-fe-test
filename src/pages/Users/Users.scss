@@ -13,6 +13,17 @@
     gap: 26px;
     margin-top: 40px;
 
+    @media screen and (max-width: 1350px) {
+      display: grid;
+      row-gap: 12px;
+      grid-template-columns: auto auto;
+    }
+
+    @media screen and (max-width: 435px) {
+      display: flex;
+      flex-direction: column;
+    }
+
     .users-info {
       background-color: white;
       width: 25%;
@@ -20,8 +31,19 @@
       border: 1px solid rgba(33, 63, 125, 0.06);
       padding-left: 30px;
       padding-bottom: 30px;
+      padding-right: 20px;
       padding-top: 20px;
       box-shadow: 3px 5px 20px 0px #0000000a;
+
+      @media screen and (max-width: 1350px) {
+        width: 100%;
+      }
+
+      @media screen and (max-width: 435px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
       .img-container {
         display: flex;
@@ -157,6 +179,11 @@
     margin-top: 20px;
     margin-bottom: 200px;
 
+    @media screen and (max-width: 585px) {
+      flex-direction: column;
+      gap: 12px;
+    }
+
     .pagination-info {
       color: $text-secondary;
       font-size: 0.875rem;
@@ -210,6 +237,10 @@
       align-items: center;
       gap: 20px;
 
+      @media screen and (max-width: 675px) {
+        gap: 12px;
+      }
+
       .prev,
       .next {
         width: 24px;
@@ -225,6 +256,10 @@
         display: flex;
         align-items: center;
         gap: 20px;
+
+        @media screen and (max-width: 675px) {
+          gap: 12px;
+        }
 
         .page {
           color: $text-secondary;

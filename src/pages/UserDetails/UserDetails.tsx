@@ -19,7 +19,7 @@ const UserDetails = () => {
 
   return (
     <>
-      <Link to={"/"}>
+      <Link to={"/dashboard"}>
         <button className="back-btn">
           <svg
             width="28"

@@ -15,6 +15,36 @@ $text-secondary: #545f7d;
   font-style: normal;
 }
 
+/*START OF SCROLLBAR STYLES*/
+
+/* For WebKit-based browsers (Chrome, Safari) */
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+body::-webkit-scrollbar {
+  display: block;
+  width: 8px;
+}
+
+/* Handle */
+body::-webkit-scrollbar-thumb {
+  background: $text-primary;
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+/* For Firefox */
+/* Firefox supports scrollbar styling via -moz properties */
+/* You may need to use !important to override default styles */
+* {
+  // scrollbar-width: thin !important;
+  // scrollbar-color: #213f7d !important;
+}
+
+/*END OF SCROLLBAR STYLES*/
+
 /* START OF POPOVER RESET STYLES */
 .MuiPaper-root {
   box-shadow: none !important;

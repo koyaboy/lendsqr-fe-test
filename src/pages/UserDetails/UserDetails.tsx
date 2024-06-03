@@ -5,11 +5,9 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 const UserDetails = () => {
-  const [users, setUsers] = useState<Users[]>(
-    JSON.parse(localStorage.getItem("Users") || "")
-  );
-
   const [user, setUser] = useState<Users>();
+
+  const users: Users[] = JSON.parse(localStorage.getItem("Users") || "");
   const { userId } = useParams();
 
   useEffect(() => {

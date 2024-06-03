@@ -16,8 +16,6 @@ const mockUsers = Array.from({ length: 100 }, (_, i) => ({
 }));
 // Add more mock user data as needed
 
-const itemsPerPage = 10;
-
 describe("Users component", () => {
   beforeEach(() => {
     vi.stubGlobal(

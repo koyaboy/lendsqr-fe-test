@@ -15,7 +15,6 @@ const Users = () => {
   const [displayedUsers, setDisplayedUsers] = useState<Users[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<Users[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
 
   const [totalPages, setTotalPages] = useState<number>(1);
   const [pageNumbers, setPageNumbers] = useState<(number | string)[]>([]);
@@ -52,7 +51,7 @@ const Users = () => {
       setTotalPages(result.length / itemsPerPage);
       setIsLoading(false);
     } catch (error: any) {
-      setError(error);
+      console.log(error);
       setIsLoading(false);
     }
   };

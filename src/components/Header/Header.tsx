@@ -1,4 +1,3 @@
-import React from "react";
 import "./Header.scss";
 import logo from "../../assets/logo.png";
 import userImage from "../../assets/user-image.png";

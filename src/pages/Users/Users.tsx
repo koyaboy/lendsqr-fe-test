@@ -671,7 +671,11 @@ const Users = () => {
             </div>
 
             <div className="toggle-pages-container">
-              <button className="prev" onClick={() => goToPrevPage()}>
+              <button
+                aria-label="prev"
+                className="prev"
+                onClick={() => goToPrevPage()}
+              >
                 <svg
                   width="8"
                   height="12"
@@ -707,7 +711,11 @@ const Users = () => {
                   ))}
               </div>
 
-              <button className="next" onClick={() => goToNextPage()}>
+              <button
+                aria-label="next"
+                className="next"
+                onClick={() => goToNextPage()}
+              >
                 <svg
                   width="8"
                   height="12"

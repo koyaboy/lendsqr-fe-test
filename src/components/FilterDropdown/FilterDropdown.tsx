@@ -62,7 +62,7 @@ const FilterDropdown = ({
         }}
       >
         <div className="filter-dropdown-container">
-          <Typography sx={{ p: 2 }}>
+          <Typography component="div" sx={{ p: 2 }}>
             <form className="form" onSubmit={handleFilter}>
               <div className="form-content-container">
                 <div className="group">

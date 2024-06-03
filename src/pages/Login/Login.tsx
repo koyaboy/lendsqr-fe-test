@@ -20,10 +20,6 @@ const Login = () => {
   const [passwordType, setPasswordType] = useState<string>("password");
   const [error, setError] = useState<boolean>(false);
 
-  useEffect(() => {
-    localStorage?.removeItem("isAuthenticated");
-  });
-
   const navigate = useNavigate();
 
   const {

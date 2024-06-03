@@ -17,7 +17,8 @@ const loginCredentials = {
 };
 
 const Login = () => {
-  const [passwordType, setPasswordType] = useState("password");
+  const [passwordType, setPasswordType] = useState<string>("password");
+  const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
     localStorage?.removeItem("isAuthenticated");
@@ -25,17 +26,9 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const wrongCredentialsRef: React.RefObject<HTMLDivElement> | null =
-    useRef<HTMLDivElement>(null);
-  const passwordRef: React.RefObject<HTMLInputElement> | null =
-    useRef<HTMLInputElement>(null);
-  const testRef: React.RefObject<HTMLElement> | null =
-    useRef<HTMLElement>(null);
-
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<LoginFormInput>();
 
@@ -50,15 +43,11 @@ const Login = () => {
       data.email == loginCredentials.email &&
       data.password == loginCredentials.password
     ) {
-      if (wrongCredentialsRef && wrongCredentialsRef.current) {
-        wrongCredentialsRef.current.style.display = "none";
-      }
       localStorage.setItem("isAuthenticated", JSON.stringify(true));
+      setError(false);
       navigate("/", { replace: true });
     } else {
-      if (wrongCredentialsRef && wrongCredentialsRef.current) {
-        wrongCredentialsRef.current.style.display = "block";
-      }
+      setError(true);
     }
   };
 
@@ -72,9 +61,11 @@ const Login = () => {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="login-container">
-          <div ref={wrongCredentialsRef} className="wrong-credentials-error">
-            <p>Wrong Email or Password</p>
-          </div>
+          {error && (
+            <div className="wrong-credentials-error">
+              <p>Wrong Email or Password</p>
+            </div>
+          )}
           <div className="heading-section">
             <h1>Welcome!</h1>
             <p>Enter details to login.</p>

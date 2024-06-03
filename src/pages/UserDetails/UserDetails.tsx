@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { Users } from "../../models/Users";
 import "./UserDetails.scss";
 import { Link } from "react-router-dom";

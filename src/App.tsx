@@ -1,12 +1,10 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import "./App.scss";
 
 function App() {
-  return (
-    <>
-      <Outlet />
-    </>
-  );
+  const isAuthenticated = localStorage.getItem("isAuthenticated") || null;
+
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 }
 
 export default App;

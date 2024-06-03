@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Login.scss";
 import logo from "../../assets/logo.png";
 import SignInImage from "../../assets/sign-in-img.png";
@@ -18,6 +18,10 @@ const loginCredentials = {
 
 const Login = () => {
   const [passwordType, setPasswordType] = useState("password");
+
+  useEffect(() => {
+    localStorage?.removeItem("isAuthenticated");
+  });
 
   const navigate = useNavigate();
 
@@ -50,7 +54,7 @@ const Login = () => {
         wrongCredentialsRef.current.style.display = "none";
       }
       localStorage.setItem("isAuthenticated", JSON.stringify(true));
-      navigate("/dashboard", { replace: true });
+      navigate("/", { replace: true });
     } else {
       if (wrongCredentialsRef && wrongCredentialsRef.current) {
         wrongCredentialsRef.current.style.display = "block";

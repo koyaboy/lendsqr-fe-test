@@ -5,46 +5,22 @@ import Dashboard from "./pages/Dashboard/Dashboard.tsx";
 import Users from "./pages/Users/Users";
 import UserDetails from "./pages/UserDetails/UserDetails";
 import Login from "./pages/Login/Login.tsx";
-import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.tsx";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./index.scss";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-const router = createBrowserRouter([
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/",
-    element: <App />,
-    children: [
-      {
-        path: "dashboard",
-        element: <ProtectedRoute />, // Protect this route
-        children: [
-          {
-            path: "",
-            element: <Dashboard />,
-            children: [
-              {
-                path: "",
-                element: <Users />,
-              },
-              {
-                path: "userdetails/:userId",
-                element: <UserDetails />,
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-]);
+import "./index.scss";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-    {/* <App /> */}
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<App />}>
+          <Route path="" element={<Dashboard />}>
+            <Route index element={<Users />} />
+            <Route path="userdetails/:userId" element={<UserDetails />} />
+          </Route>
+        </Route>
+      </Routes>
+    </Router>
   </React.StrictMode>
 );
